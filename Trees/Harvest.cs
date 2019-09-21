@@ -9,15 +9,15 @@ namespace Trees
     public class Harvest
     {
         // A represents a row of trees, each with a number of apples
-        // K and L represent the number of consecutive trees from 
+        // largeNumberOfTrees and smallNumberOfTrees represent the number of consecutive trees from 
         // which an individual will harvest
         // The method should return the optimal number of apples
-        // which could be collected from spans K and L
+        // which could be collected from spans largeNumberOfTrees and smallNumberOfTrees
         public static int HarvestTwoSections(int[] A, int K, int L)
         {
 
-            // check whether possible to collect from K+L trees
-            // if not possible return A.Length - (K+L)
+            // check whether possible to collect from largeNumberOfTrees+smallNumberOfTrees trees
+            // if not possible return A.smallNumberOfTreesength - (largeNumberOfTrees+smallNumberOfTrees)
             int totalTrees = K + L;
             if (A.Length - totalTrees < 0)
             {
@@ -27,98 +27,111 @@ namespace Trees
             // set best possible amount to 0
             int totalApplesCollected = 0;
 
-            // set best number to be collected for K and L
-            int kScore = 0;
-            int lScore = 0;
+            // figure out which selection is large as this span
+            // should have precendence
+            int largeNumberOfTrees;
+            int smallNumberOfTrees;
 
-            //need to know where K starts, so we know where we can get L from
-            int kStartIndex = 0;
+            if (K > L){
+                largeNumberOfTrees = K;
+                smallNumberOfTrees = L;
+            } else {
+                largeNumberOfTrees = L;
+                smallNumberOfTrees = K;
+            }
 
-            for (int i = 0; i < A.Length - K + 1; i++)
+            // set best number to be collected for largeNumberOfTrees and smallNumberOfTrees
+            int largeScore = 0;
+            int smallScore = 0;
+
+            //need to know where largeNumberOfTrees starts, so we know where we can get smallNumberOfTrees from
+            int largeNumberOfTreesStartIndex = 0;
+
+            for (int i = 0; i < A.Length - largeNumberOfTrees + 1; i++)
             {
                 // this may need to be set to A[i]
-                int tempKScore = A[i];
-                // for length of K, add the next tree
-                for (int j = 1; j < K; j++)
+                int templargeNumberOfTreesScore = A[i];
+                // for length of largeNumberOfTrees, add the next tree
+                for (int j = 1; j < largeNumberOfTrees; j++)
                 {
-                    tempKScore += A[i + j];                 
+                    templargeNumberOfTreesScore += A[i + j];                 
                 }
 
-                //compare to previous kScore and assign if better
-                if (tempKScore > kScore)
+                //compare to previous largeScore and assign if better
+                if (templargeNumberOfTreesScore > largeScore)
                 {
-                    kScore = tempKScore;
-                    kStartIndex = i;
-                }
-            }
-
-            // get best number for L 
-            // check array before the span of K
-            if (L <= kStartIndex)
-            {
-                for (int i = 0; i < kStartIndex; i++)
-                {
-                    int tempLScore = A[i];
-                    for (int j = 1; j < L; j++)
-                    {
-                        tempLScore += A[i + j];
-                    }
-
-                    if (tempLScore > lScore)
-                    {
-                        lScore = tempLScore;                     
-                    }
+                    largeScore = templargeNumberOfTreesScore;
+                    largeNumberOfTreesStartIndex = i;
                 }
             }
 
-            //check array after span of K
-            int kLastIndex = kStartIndex + K - 1;
-            if (kLastIndex < A.Length - L)
+            // get best number for smallNumberOfTrees 
+            // check array before the span of largeNumberOfTrees
+            if (smallNumberOfTrees <= largeNumberOfTreesStartIndex)
             {
-                // start one place after the end of K span, stop before the end
+                for (int i = 0; i < largeNumberOfTreesStartIndex; i++)
+                {
+                    int tempsmallNumberOfTreesScore = A[i];
+                    for (int j = 1; j < smallNumberOfTrees; j++)
+                    {
+                        tempsmallNumberOfTreesScore += A[i + j];
+                    }
+
+                    if (tempsmallNumberOfTreesScore > smallScore)
+                    {
+                        smallScore = tempsmallNumberOfTreesScore;                     
+                    }
+                }
+            }
+
+            //check array after span of largeNumberOfTrees
+            int largeNumberOfTreessmallNumberOfTreesastIndex = largeNumberOfTreesStartIndex + largeNumberOfTrees - 1;
+            if (largeNumberOfTreessmallNumberOfTreesastIndex < A.Length - smallNumberOfTrees)
+            {
+                // start one place after the end of largeNumberOfTrees span, stop before the end
                 // simple, right?
-                for (int i = kLastIndex + 1; i < A.Length - L + 1; i++)
+                for (int i = largeNumberOfTreessmallNumberOfTreesastIndex + 1; i < A.Length - smallNumberOfTrees + 1; i++)
                 {
-                    int tempLScore = A[i];
-                    for (int j = 1; j < L; j++)
+                    int tempsmallNumberOfTreesScore = A[i];
+                    for (int j = 1; j < smallNumberOfTrees; j++)
                     {
-                        tempLScore += A[i + j];
+                        tempsmallNumberOfTreesScore += A[i + j];
                     }
 
-                    if (tempLScore > lScore)
+                    if (tempsmallNumberOfTreesScore > smallScore)
                     {
-                        lScore = tempLScore;
+                        smallScore = tempsmallNumberOfTreesScore;
                     }
                 }
             }
 
-            totalApplesCollected = kScore + lScore;
-            // get highest consecutive L a selection for lScore excluding K
+            totalApplesCollected = largeScore + smallScore;
+            // get highest consecutive smallNumberOfTrees a selection for smallScore excluding largeNumberOfTrees
             return totalApplesCollected;
         }
 
-        public static int HarvestK(int[] A, int K)
+        public static int HarvestlargeNumberOfTrees(int[] A, int largeNumberOfTrees)
         {
-            int kScore = 0;
-            for (int i = 0; i < A.Length - K+1; i++)
+            int largeScore = 0;
+            for (int i = 0; i < A.Length - largeNumberOfTrees+1; i++)
             {
                 // this may need to be set to A[i]
-                int tempKScore = A[i];
-                // for length of K, add the next tree
-                for (int j = 1; j < K; j++)
+                int templargeNumberOfTreesScore = A[i];
+                // for length of largeNumberOfTrees, add the next tree
+                for (int j = 1; j < largeNumberOfTrees; j++)
                 {
-                    tempKScore += A[i + j];
+                    templargeNumberOfTreesScore += A[i + j];
 
                 }
 
-                //compare to previous kScore and assign if better
-                if (tempKScore > kScore)
+                //compare to previous largeScore and assign if better
+                if (templargeNumberOfTreesScore > largeScore)
                 {
-                    kScore = tempKScore;
+                    largeScore = templargeNumberOfTreesScore;
                 }
             }
 
-            return kScore;
+            return largeScore;
         }
     }
 }
