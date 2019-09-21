@@ -34,7 +34,7 @@ namespace Trees
             //need to know where K starts, so we know where we can get L from
             int kStartIndex = 0;
 
-            for (int i = 0; i < A.Length - K; i++)
+            for (int i = 0; i < A.Length - K + 1; i++)
             {
                 // this may need to be set to A[i]
                 int tempKScore = A[i];
@@ -42,7 +42,7 @@ namespace Trees
                 for (int j = 1; j < K; j++)
                 {
                     tempKScore += A[i + j];
-
+                    
                 }
 
                 //compare to previous kScore and assign if better
@@ -50,6 +50,7 @@ namespace Trees
                 {
                     kScore = tempKScore;
                     kStartIndex = i;
+                    Console.WriteLine("tempKScore:" + tempKScore);
                 }
             }
 
@@ -57,17 +58,19 @@ namespace Trees
             // check array before the span of K
             if (L <= kStartIndex)
             {
-                for (int i = 0; i < L; i++)
+                for (int i = 1; i < L; i++)
                 {
                     int tempLScore = A[i];
                     for (int j = 1; j < L; j++)
                     {
                         tempLScore += A[i + j];
+                        Console.WriteLine("tempLScore:" + tempLScore);
                     }
 
                     if (tempLScore > lScore)
                     {
                         lScore = tempLScore;
+                        
                     }
                 }
             }
@@ -101,7 +104,7 @@ namespace Trees
         public static int HarvestK(int[] A, int K)
         {
             int kScore = 0;
-            for (int i = 0; i < A.Length - K; i++)
+            for (int i = 0; i < A.Length - K+1; i++)
             {
                 // this may need to be set to A[i]
                 int tempKScore = A[i];
