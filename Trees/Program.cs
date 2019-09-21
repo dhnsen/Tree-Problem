@@ -12,11 +12,9 @@ namespace Trees
         {
             Console.WriteLine("Harvest Two Sections:\n");
             Console.WriteLine("Expect 80: " + Harvest.HarvestTwoSections(new int[] { 10, 10, 0, 0, 20, 20, 20 }, 3, 2));
-
-            Console.WriteLine("Harvest K Section:\n");
-            Console.WriteLine("Expect 63: " + Harvest.HarvestK(new int[] { 10, 10, 0, 0, 22, 20, 21 }, 3));
-            Console.WriteLine("Expect 60: " + Harvest.HarvestK(new int[] { 0,0,0,20,20,20,0,0 }, 3));
-            Console.WriteLine("Expect 40: " + Harvest.HarvestK(new int[] { 10,10,0,0,20,20,20 }, 2));
+            Console.WriteLine("Expect 90: " + Harvest.HarvestTwoSections(new int[] { 10, 10, 20, 0, 0, 20, 20, 20 }, 3, 2));
+            Console.WriteLine("Expect 100: " + Harvest.HarvestTwoSections(new int[] { 10, 10, 20, 0, 0, 30, 20, 20 }, 3, 2));
+            Console.WriteLine("Expect 100: " + Harvest.HarvestTwoSections(new int[] { 10, 10, 20, 0, 0, 20, 20, 20, 0, 20, 20 }, 3, 2));
 
             Console.ReadLine();
         }

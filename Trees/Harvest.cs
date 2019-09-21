@@ -41,8 +41,7 @@ namespace Trees
                 // for length of K, add the next tree
                 for (int j = 1; j < K; j++)
                 {
-                    tempKScore += A[i + j];
-                    
+                    tempKScore += A[i + j];                 
                 }
 
                 //compare to previous kScore and assign if better
@@ -50,7 +49,6 @@ namespace Trees
                 {
                     kScore = tempKScore;
                     kStartIndex = i;
-                    Console.WriteLine("tempKScore:" + tempKScore);
                 }
             }
 
@@ -58,19 +56,17 @@ namespace Trees
             // check array before the span of K
             if (L <= kStartIndex)
             {
-                for (int i = 1; i < L; i++)
+                for (int i = 0; i < kStartIndex; i++)
                 {
                     int tempLScore = A[i];
                     for (int j = 1; j < L; j++)
                     {
                         tempLScore += A[i + j];
-                        Console.WriteLine("tempLScore:" + tempLScore);
                     }
 
                     if (tempLScore > lScore)
                     {
-                        lScore = tempLScore;
-                        
+                        lScore = tempLScore;                     
                     }
                 }
             }
